@@ -1,70 +1,138 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Expense Tracker
 
-## Available Scripts
+A full-stack Expense Tracker application built with **React** (frontend), **Flask** (backend), and **MySQL** (database).  
+Easily track, add, update, delete, and search your expenses.  
+Includes Bootstrap styling and ready for ML analytics extension.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Add, view, edit, and delete expenses
+- Search expenses by ID
+- Responsive UI with Bootstrap
+- RESTful API with Flask and MySQL
+- Ready for machine learning analytics integration
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+expense-tracker/
+  ├── backend/      # Flask backend API
+  └── frontend/     # React frontend app
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the Repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/yourusername/expense-tracker.git
+cd expense-tracker
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2. Backend Setup (Flask + MySQL)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### a. Install Python dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+*(If you don’t have a `requirements.txt`, install at least: `flask`, `flask-mysqldb`, `flask-cors`.)*
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### b. Configure MySQL
 
-## Learn More
+- Make sure you have a MySQL database (local or online).
+- Create an `expenses` table:
+  ```sql
+  CREATE TABLE expenses (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      amount DECIMAL(10,2),
+      category VARCHAR(50),
+      description VARCHAR(255),
+      date DATE
+  );
+  ```
+- Update `app.py` with your MySQL credentials.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### c. Run the backend server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+python app.py
+```
+The backend runs on [http://localhost:3003](http://localhost:3003) by default.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 3. Frontend Setup (React)
 
-### Analyzing the Bundle Size
+#### a. Install Node dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd ../frontend
+npm install
+```
 
-### Making a Progressive Web App
+#### b. Set up Proxy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Add this line to `frontend/package.json`:
+```json
+"proxy": "http://localhost:3003"
+```
 
-### Advanced Configuration
+#### c. Start the frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm start
+```
+The frontend runs on [http://localhost:3000](http://localhost:3000).
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Usage
 
-### `npm run build` fails to minify
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
+- Add expenses using the form.
+- View, edit, delete, or search expenses by ID.
+- All changes are reflected in real time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Customization & Extensions
+
+- **Styling:** Edit `App.css` or use Bootstrap classes for custom UI.
+- **Machine Learning:** Add analytics endpoints in the Flask backend and connect them to the frontend.
+- **Authentication:** Add user login/register for multi-user support.
+
+---
+
+## Troubleshooting
+
+- If you see `Module not found` errors in React, run `npm install` in the `frontend` folder.
+- If you see `ModuleNotFoundError: No module named 'flask'`, activate your Python virtual environment and run `pip install flask`.
+- If the backend can't connect to MySQL, check your credentials and database/table existence.
+
+---
+
+## License
+
+MIT License
+
+---
+
+**Happy Tracking!**
+
+---
+
+Feel free to update the repo URL, add your name, or expand the sections as your project grows!
+
