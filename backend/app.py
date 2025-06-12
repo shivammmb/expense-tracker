@@ -6,10 +6,10 @@ import werkzeug.exceptions
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'sql12.freesqldatabase.com'
-app.config['MYSQL_USER'] = 'sql12783047'
-app.config['MYSQL_PASSWORD'] = 'QNHrJj6eFi'
-app.config['MYSQL_DB'] = 'sql12783047'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'           
+app.config['MYSQL_PASSWORD'] = 'SQLSbaheti101!'          
+app.config['MYSQL_DB'] = 'expense_tracker'
 
 CORS(app)
 mysql = MySQL(app)

@@ -6,12 +6,13 @@ import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
 
 
+
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [searchId, setSearchId] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [editingExpense, setEditingExpense] = useState(null);
-
+  const [searchClicked, setSearchClicked] = useState(null);
   // Fetch all expenses
   const fetchExpenses = () => {
     axios.get("/api/expenses")
@@ -39,6 +40,7 @@ function App() {
 
   // Search expense by ID
   const searchExpenseById = () => {
+    setSearchClicked(true);
     if (!searchId) {
       setSearchResult(null);
       return;
@@ -63,23 +65,39 @@ function App() {
       <h1>Expense Tracker</h1>
 
       {/* Search by ID */}
-      <div className="mb-3">
+      <div className="mb-3 d-flex">
         <input
           type="number"
           placeholder="Search expense by ID"
           value={searchId}
-          onChange={e => setSearchId(e.target.value)}
-          className="form-control mb-2"
+          onChange={e => {
+            setSearchId(e.target.value);
+            setSearchClicked(false); // Reset when typing
+          }}
+          className="form-control mb-2 me-2"
+          style={{ maxWidth: 1300 }}
         />
-        <button onClick={searchExpenseById} className="btn btn-primary mb-3">Search</button>
-        {searchResult ? (
+        <button
+          onClick={searchExpenseById}
+          className="btn btn-primary mb-2"
+          style={{ height: "38px" }}
+        >
+          Search
+        </button>
+      </div>
+      {searchClicked && (
+        searchResult ? (
           <div className="alert alert-info">
             <strong>Found Expense:</strong> ID: {searchResult.id}, Amount: ${searchResult.amount}, Category: {searchResult.category}, Description: {searchResult.description}, Date: {searchResult.date}
           </div>
-        ) : searchId ? (
-          <div className="alert alert-warning">No expense found with ID {searchId}</div>
-        ) : null}
-      </div>
+        ) : (
+          searchId && (
+            <div className="alert alert-warning">
+              No expense found with ID {searchId}
+            </div>
+          )
+        )
+      )}
 
       {/* Expense Form for Add or Edit */}
       <ExpenseForm
