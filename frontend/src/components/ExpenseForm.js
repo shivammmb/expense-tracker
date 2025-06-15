@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function ExpenseForm({ onAddExpense, editingExpense, onUpdateExpense, onCancelEdit }) {
   const [error, setError] = useState("");
+  const today = new Date().toISOString().split('T')[0];
   const [form, setForm] = useState({
     amount: "",
     category: "",
     description: "",
-    date: ""
+    date: today
   });
 
   // Pre-fill form when editingExpense changes
@@ -21,9 +23,9 @@ function ExpenseForm({ onAddExpense, editingExpense, onUpdateExpense, onCancelEd
         date: editingExpense.date
       });
     } else {
-      setForm({ amount: "", category: "", description: "", date: "" });
+      setForm({ amount: "", category: "", description: "", date: today });
     }setError("");
-  }, [editingExpense]);
+  }, [editingExpense, today]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -56,11 +58,11 @@ function ExpenseForm({ onAddExpense, editingExpense, onUpdateExpense, onCancelEd
     } else {
       onAddExpense(form);
     }
-    setForm({ amount: "", category: "", description: "", date: "" });
+    setForm({ amount: "", category: "", description: "", date: today });
     setError("");
   };
   const handleCancel = () => {
-    setForm({ amount: "", category: "", description: "", date: "" });
+    setForm({ amount: "", category: "", description: "", date: today });
     setError("");
     onCancelEdit();
   };
